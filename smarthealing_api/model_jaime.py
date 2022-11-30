@@ -7,7 +7,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.model_selection import learning_curve
 from sklearn.model_selection import train_test_split
 
-df = pd.read_csv('~/code/jaimesoroa/smarthealing/raw_data/datos.csv', delimiter = ";")
+df = pd.read_csv('../raw_data/datos.csv', delimiter = ";")
 df = df.drop_duplicates()
 index1 = df[ (df['numtreb'] == 0)].index
 df.drop(index1 , inplace=True)

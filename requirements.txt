@@ -11,4 +11,5 @@ scikit-learn
 fastapi
 uvicorn
 httpx
-google-cloud-storage "google-cloud-bigquery<3.0.0"
+google-cloud-storage
+# math
