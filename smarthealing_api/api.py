@@ -21,7 +21,7 @@ DTYPES_RAW_OPTIMIZED = {
     "ContadorBajasDNI": "int64",
     "sexo": "int64",
     "cnae": "int64",
-    "icd9": "float64",
+    "icd9": "float64", #string
     "recaida": "int64",
     "numtreb": "int64",
     "codipostal": "int64",
