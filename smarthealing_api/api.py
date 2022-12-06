@@ -6,27 +6,27 @@ import pandas as pd
 import os
 from smarthealing_mod.preprocessor import preprocess_train, preprocess_new
 from smarthealing_mod.model.model import fit_model
+import pickle
 
 
 dirname = os.path.dirname(__file__)
 
-def load_data():
+LOCAL_REGISTRY_PATH = os.path.expanduser(os.environ.get("LOCAL_REGISTRY_PATH"))
+
+def load_model_reg():
+    """
+    load the  saved model
+    """
     
-    # 0. Load Data and Drop Duplicates
-    csv_filename = os.path.join(dirname, '../raw_data/datos.csv')
-    data = pd.read_csv(csv_filename, delimiter = ';', low_memory = False)
-    data.drop_duplicates(inplace = True)
-    # outliers = data.query('duracion_baja >= 250')  # Save outliers for analysis.
-    data = data.query('duracion_baja < 250')
-    # data.drop_duplicates(inplace = True)
-    
-    return data
+    # get latest model version
+    model_path = os.path.join(LOCAL_REGISTRY_PATH, "regr")
+    reg_filename = 'XGB_regression_model.sav'
+    loaded_model = pickle.load(open(reg_filename, 'rb'))
 
+    return model
 
-data = load_data()
-X_train, X_test, y_train, y_test, ohe, rb_scaler, st_scaler = preprocess_train(data)
-model = fit_model(X_train, y_train)
-
+model_reg = load_model_reg()
+model_class = load_model_class()
 
 app = FastAPI()
 app.state.model = model
@@ -104,7 +104,6 @@ def predict(ContadorBajasCCC: int,
     y_pred = float(np.exp(app.state.model.predict(X_new_prepr)))
         
     # return y_pred
-    
     
     return {'leave_duration': y_pred}
 
