@@ -12,4 +12,5 @@ smarthealing_app/__init__.py
 smarthealing_interface/__init__.py
 smarthealing_interface/main.py
 smarthealing_mod/__init__.py
+smarthealing_mod/functions.py
 smarthealing_mod/preprocessor.py
