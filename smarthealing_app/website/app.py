@@ -98,6 +98,7 @@ if tabs =='Dashboard':
     fig.update_traces(
         hovertemplate="<br>".join([
             "Count: %{customdata[0]}",
+            "icd9: %{customdata[1]}",
             "Age (mean): %{customdata[2]}",
             "Age (median): %{customdata[3]}",
             "Duration (mean): %{customdata[4]}",
