@@ -116,7 +116,7 @@ if tabs =='Dashboard':
 # ================================================================================================================
 # Tab where we input the data
 elif tabs == 'Prediction':
-    image = Image.open('Pngsmarthealing.png')
+    image = Image.open('smarthealing_app/website/Pngsmarthealing.png')
     c1, c2,  = st.columns([3, 1.5], gap='medium')
     with c1:
         st.title("Get Predictions")
@@ -129,14 +129,14 @@ elif tabs == 'Prediction':
                 """)
     # 1st Line
     # CNAE category
-    cnae_df = pd.read_csv('data/cnae_list.csv', sep = '.-', dtype='string', engine='python') 
+    cnae_df = pd.read_csv('smarthealing_app/website/data/cnae_list.csv', sep = '.-', dtype='string', engine='python') 
     cnae_select = st.selectbox('CNAE Category:', (cnae_df['Code'] + ' - ' + cnae_df['Description']).tolist())
     cnae = cnae_select[:4]
 
     # 2nd Line
     c1, c2 = st.columns(2)   
     with c1:
-        contract_df = pd.read_csv('data/contract_list.csv', sep = ',', dtype='string') 
+        contract_df = pd.read_csv('smarthealing_app/website/data/contract_list.csv', sep = ',', dtype='string') 
         contract = st.selectbox('Contract Type:', (contract_df['clave'] + ' - ' + contract_df['denominacion']).tolist())
         # Selecting just description from DF, idk why it wasn't working the simple way
         contract = contract[:3]  
@@ -162,7 +162,7 @@ elif tabs == 'Prediction':
         num_workers = st.number_input('Number of workers in the company: ',min_value=0, max_value=5000000)
     with c3:
         # Codigo Postal
-        postal_df = pd.read_csv('data/postal_list.csv', sep = ',', dtype='string') 
+        postal_df = pd.read_csv('smarthealing_app/website/data/postal_list.csv', sep = ',', dtype='string') 
         
         postal = st.selectbox('Postal Code', (postal_df['codigopostalid'] + ' - ' + postal_df['provincia'] + ' - ' + postal_df['poblacion']).tolist())
         # Selecting just description from DF, idk why it wasn't working the simple way
@@ -195,7 +195,7 @@ elif tabs == 'Prediction':
         week_day = options.index(day_week) + 1 
     with c2:
         # Cotization group 
-        coti_df = pd.read_csv('data/coti_list.csv', sep = ':', dtype='string') 
+        coti_df = pd.read_csv('smarthealing_app/website/data/coti_list.csv', sep = ':', dtype='string') 
         contribution = st.selectbox('Select contribution group:',
             options=(coti_df['description'].to_list()))
         # Selecting just description from DF, idk why it wasn't working the simple way
