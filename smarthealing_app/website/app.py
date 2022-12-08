@@ -90,7 +90,7 @@ if tabs =='Dashboard':
 
     fig = px.bar(
         data_frame=more_common, 
-        x=page.index, 
+        x='delete', 
         y=page, 
         custom_data=['count', 'icd9','edad_mean', 'edad_median', 'duration_mean', 'duration_median', 'description']
     )
