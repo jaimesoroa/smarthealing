@@ -119,7 +119,7 @@ elif tabs == 'Prediction':
     image = Image.open('smarthealing_app/website/Pngsmarthealing.png')
     c1, c2,  = st.columns([3, 1.5], gap='medium')
     with c1:
-        st.title("Get Predictions")
+        st.title("Predicted Medical Leaves")
     with c2:
         st.image(image, caption=None, use_column_width=True, clamp=True, channels="RGB", output_format="auto")
         #displaying the image on streamlit app
@@ -155,7 +155,7 @@ elif tabs == 'Prediction':
     c1, c2, c3 = st.columns(3)
     with c1:
         # Day counter
-        day_counter = st.number_input('Contador de dias???????????: ',min_value=0, max_value=5000000)
+        day_counter = st.number_input('Acumulated days on leave: ',min_value=0, max_value=5000000)
         
     with c2:
         # Number of workers 
