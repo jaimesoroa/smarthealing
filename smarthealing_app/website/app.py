@@ -84,8 +84,9 @@ if tabs =='Dashboard':
     list_options = ['1 - Number of Leaves','2 - Age (Mean)', '3 - Age (Median)', '4 - Duration (Mean)', '5 - Duration (Median)']
     page_select = st.selectbox('Select graph: ', list_options)
     page = selection[int(page_select[0])-1]
+    name_page = page_select[3:]
     
-    st.header(f"In the top 10 most common causes of leaves, here is the relationship between {list_options[list_options.index][3:]} and the ICD9 code (cause of leave)")
+    st.header(f"In the top 10 most common causes of leaves, here is the relationship between {name_page} and the ICD9 code (cause of leave)")
     fun = pd.read_csv('smarthealing_app/website/fun_stuff.csv')
     more_common = fun.head(10)
     more_common = round(more_common,2)
