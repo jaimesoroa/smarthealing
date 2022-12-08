@@ -217,7 +217,7 @@ elif tabs == 'Prediction':
     with c2:
         # How old is the worker
         a0 = st.date_input(
-        "When was the employee born? ", date(2004, 7, 6), min_value=date(1910, 7, 6))
+        "When was the employee born? ", date(1997, 7, 6), min_value=date(1910, 7, 6))
         a1 = date.today()
         a3 = a1 - a0
         age = round((a3.days/365),3)
