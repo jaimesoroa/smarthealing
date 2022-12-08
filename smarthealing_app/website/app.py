@@ -78,12 +78,14 @@ if tabs =='Dashboard':
     st.markdown("""---""")
     
     st.markdown(""" 
-                What shall we put here?
+                The dataset consist of the information on leaves of more than 250K employees of many different companies
                 """)
-    
-    page = st.selectbox('Select graph: ',['count','edad_mean', 'edad_median', 'duration_mean', 'duration_median'])
+    selection = ['count','edad_mean', 'edad_median', 'duration_mean', 'duration_median']
+    list_options = ['1 - Number of Leaves','2 - edad_mean', 'edad_median', 'duration_mean', 'duration_median']
+    page = st.selectbox('Select graph: ', selection)
     # Display the country content here
-    st.header(f"Relationship of {page.capitalize()} and ICD9")
+    page = selection[page[0]]
+    st.header(f"In the top 10 most common causes of leaves, here is the relationship between {page.capitalize()} and the ICD9 code (cause of leave)")
     fun = pd.read_csv('smarthealing_app/website/fun_stuff.csv')
     more_common = fun.head(10)
     more_common = round(more_common,2)
