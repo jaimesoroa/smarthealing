@@ -59,7 +59,7 @@ st.set_page_config(
 if "params" not in st.session_state:
     st.session_state['params'] = dict()
 
-st.markdown('<style>' + open('style.css').read() + '</style>', unsafe_allow_html=True)
+st.markdown('<style>' + open('smarthealing_app/website/style.css').read() + '</style>', unsafe_allow_html=True)
 
 with st.sidebar:
         tabs = on_hover_tabs(tabName=['Dashboard', 'Prediction', 'Results'], 
@@ -69,7 +69,7 @@ with st.sidebar:
 # ===============================================================================================================
 # Tab Dashboard
 if tabs =='Dashboard':
-    image = Image.open('Pngsmarthealing.png')
+    image = Image.open('smarthealing_app/website/Pngsmarthealing.png')
     c1, c2,  = st.columns([3, 1.5], gap='medium')
     with c1:
         st.title("Dashboard")
