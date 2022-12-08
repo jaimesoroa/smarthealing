@@ -196,7 +196,7 @@ elif tabs == 'Prediction':
     with c2:
         # Cotization group 
         coti_df = pd.read_csv('smarthealing_app/website/data/coti_list.csv', sep = ':', dtype='string') 
-        contribution = st.selectbox('Select contribution group:',
+        contribution = st.selectbox('Select tax contribution group:',
             options=(coti_df['description'].to_list()))
         # Selecting just description from DF, idk why it wasn't working the simple way
         selection_coti = coti_df[coti_df['description']==contribution]['category'].iloc[0]
@@ -213,13 +213,13 @@ elif tabs == 'Prediction':
     with c2:
         # How old is the worker
         a0 = st.date_input(
-        "When was the worker born? ", date(2004, 7, 6), min_value=date(1910, 7, 6))
+        "When was the employee born? ", date(2004, 7, 6), min_value=date(1910, 7, 6))
         a1 = date.today()
         a3 = a1 - a0
         age = round((a3.days/365),3)
     with c3:
         # Week
-        week = st.number_input('Number of the week of the year on leave: ', min_value=0, max_value=5000000)
+        week = st.number_input('Week of the year: ', min_value=0, max_value=5000000)
     st.markdown("""---""")
         
     if st.button(label = 'Get Prediction'):
@@ -255,9 +255,9 @@ elif tabs == 'Prediction':
             regress_baja = prediction.json().get('regression_leave_duration')
             class_baja = prediction.json().get('classifier_leave_duration')
             if(class_baja == 0):
-                st.success(f"### Predicted Classification: *Short Leave*")
+                st.success(f"### Predicted: *Short Leave (Shorter than 15 days)*")
             else:
-                st.success(f"### Predicted duration: *Long Leave*")
+                st.success(f"### Predicted duration: *Long Leave (Longer than 15 days)*")
             st.success(f"### Estimated duration: *Around {regress_baja} days*")
     
 # ================================================================
