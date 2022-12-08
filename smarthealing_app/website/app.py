@@ -85,7 +85,7 @@ if tabs =='Dashboard':
     # Display the country content here
     st.header(f"Relationship of {page.capitalize()} and ICD9")
     fun = pd.read_csv('smarthealing_app/website/fun_stuff.csv')
-    more_common = fun.head(5)
+    more_common = fun.head(10)
     more_common = round(more_common,2)
 
     fig = px.bar(
