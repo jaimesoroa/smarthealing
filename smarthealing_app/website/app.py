@@ -259,7 +259,7 @@ elif tabs == 'Prediction':
             else:
                 st.header(f" Predicted duration: Long Leave")
             st.markdown(f"### Estimated duration: *Around {regress_baja} days*")
-        st.success('Done! 👍')
+        st.success('Done!')
     
 # ================================================================
 elif tabs == 'Results':
