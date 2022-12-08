@@ -16,3 +16,4 @@ google-cloud-storage
 xgboost
 uvicorn
 openpyxl
+imblearn

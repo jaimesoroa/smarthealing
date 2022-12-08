@@ -18,11 +18,11 @@ def load_models():
     persist trained model, params and metrics
     '''
         
-    reg_model_path = os.path.join(LOCAL_REGISTRY_PATH, "xgb_regression_model.pkl")
+    reg_model_path = os.path.join(dirname, '../trained_models/xgb_regression_model.pkl')
     with open(reg_model_path, "rb") as file:
         model_reg = pickle.load(file)
         
-    class_model_path = os.path.join(LOCAL_REGISTRY_PATH, "xgb_classifier_model.pkl")
+    class_model_path = os.path.join(dirname, '../trained_models/xgb_classifier_model.pkl')
     with open(class_model_path, "rb") as file:
         model_class = pickle.load(file)
     
@@ -34,17 +34,17 @@ model_reg, model_class = load_models()
 
 def load_files():
     # Load cnae_categories 
-    cnae_categories_path = os.path.join(LOCAL_REGISTRY_PATH, "cnae_categories.pkl")
+    cnae_categories_path = os.path.join(dirname, '../trained_models/cnae_categories.pkl')
     with open(cnae_categories_path, "rb") as file:
         cnae_categories = pickle.load(file)
 
     # Load icd9_mapper
-    icd9_mapper_path = os.path.join(LOCAL_REGISTRY_PATH, "icd9_mapper.pkl")
+    icd9_mapper_path = os.path.join(dirname, '../trained_models/icd9_mapper.pkl')
     with open(icd9_mapper_path, "rb") as file:
         icd9_mapper = pickle.load(file)
         
     # Load preprocessor
-    preproc_path = os.path.join(LOCAL_REGISTRY_PATH, "preproc_pipeline.pkl")
+    preproc_path = os.path.join(dirname, '../trained_models/preproc_pipeline.pkl')
     with open(preproc_path, "rb") as file:
         preproc = pickle.load(file)
 
