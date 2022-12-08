@@ -85,7 +85,7 @@ if tabs =='Dashboard':
     page = st.selectbox('Select graph: ',['count','edad_mean', 'edad_median', 'duration_mean', 'duration_median'])
     # Display the country content here
     st.header(f"{page} and icd9")
-    fun = pd.read_csv('fun_stuff.csv')
+    fun = pd.read_csv('smarthealing_app/website/fun_stuff.csv')
     more_common = fun.head(10)
     more_common = round(more_common,2)
 
