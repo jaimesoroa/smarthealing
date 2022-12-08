@@ -129,7 +129,7 @@ elif tabs == 'Prediction':
         #displaying the image on streamlit app
     st.markdown("""---""")
     st.markdown("""
-                #### Please, fill this form to get a prediction of how many days should the employee take of leave?
+                #### Please fill with worker's information
                 """)
     # 1st Line
     # CNAE category
