@@ -95,7 +95,8 @@ if tabs =='Dashboard':
         x='delete', 
         y=page, 
         custom_data=['count', 'icd9','edad_mean', 'edad_median', 'duration_mean', 'duration_median', 'description']
-    )
+    ).update_layout(xaxis_title="Date", yaxis_title="7 day avg"
+)
 
     fig.update_traces(
         hovertemplate="<br>".join([
