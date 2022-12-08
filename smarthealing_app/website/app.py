@@ -84,6 +84,7 @@ if tabs =='Dashboard':
     list_options = ['1 - Number of Leaves','2 - edad_mean', 'edad_median', 'duration_mean', 'duration_median']
     page = st.selectbox('Select graph: ', list_options)
     # Display the country content here
+    st.markdown(page[0])
     page = selection[page[0]]
     st.header(f"In the top 10 most common causes of leaves, here is the relationship between {page.capitalize()} and the ICD9 code (cause of leave)")
     fun = pd.read_csv('smarthealing_app/website/fun_stuff.csv')
