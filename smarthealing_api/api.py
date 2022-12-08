@@ -4,8 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import pandas as pd
 import os
-from smarthealing_mod.preprocessor import preprocess_train, preprocess_new
-from smarthealing_mod.model.model import fit_model
+from smarthealing_mod.preprocessor import preprocess_new
 import pickle
 
 
@@ -13,30 +12,69 @@ dirname = os.path.dirname(__file__)
 
 LOCAL_REGISTRY_PATH = os.path.expanduser(os.environ.get("LOCAL_REGISTRY_PATH"))
 
-def load_model_reg():
-    """
-    load the  saved model
-    """
+
+def load_models():
+    '''
+    persist trained model, params and metrics
+    '''
+        
+    reg_model_path = os.path.join(dirname, '../trained_models/xgb_regression_model.pkl')
+    with open(reg_model_path, "rb") as file:
+        model_reg = pickle.load(file)
+        
+    class_model_path = os.path.join(dirname, '../trained_models/xgb_classifier_model.pkl')
+    with open(class_model_path, "rb") as file:
+        model_class = pickle.load(file)
     
-    # get latest model version
-    model_path = os.path.join(LOCAL_REGISTRY_PATH, "regr")
-    reg_filename = 'XGB_regression_model.sav'
-    loaded_model = pickle.load(open(reg_filename, 'rb'))
+    return model_reg, model_class
 
-    return model
+model_reg, model_class = load_models()
 
-model_reg = load_model_reg()
-model_class = load_model_class()
+
+
+def load_files():
+    # Load cnae_categories 
+    cnae_categories_path = os.path.join(dirname, '../trained_models/cnae_categories.pkl')
+    with open(cnae_categories_path, "rb") as file:
+        cnae_categories = pickle.load(file)
+
+    # Load icd9_mapper
+    icd9_mapper_path = os.path.join(dirname, '../trained_models/icd9_mapper.pkl')
+    with open(icd9_mapper_path, "rb") as file:
+        icd9_mapper = pickle.load(file)
+        
+    # Load preprocessor
+    preproc_path = os.path.join(dirname, '../trained_models/preproc_pipeline.pkl')
+    with open(preproc_path, "rb") as file:
+        preproc = pickle.load(file)
+
+    """
+    # Load regressor pipeline
+    regressor_path = os.path.join(LOCAL_REGISTRY_PATH, "regressor_pipeline.pkl")
+    with open(regressor_path, "rb") as file:
+        regressor_pipeline = pickle.load(file)
+
+    # Load classifier pipeline
+    classifier_path = os.path.join(LOCAL_REGISTRY_PATH, "classifier_pipeline.pkl")
+    with open(classifier_path, "rb") as file:
+        classifier_pipeline = pickle.load(file)
+    """
+
+    return cnae_categories, icd9_mapper, preproc
+
+cnae_categories, icd9_mapper, preproc = load_files()
 
 app = FastAPI()
-app.state.model = model
+app.state.model_reg = model_reg
+app.state.model_class = model_class
+app.state.preproc = preproc
+
+# app.state.reg_pipeline = regressor_pipeline
+# app.state.class_pipeline = classifier_pipeline
 
 # "key": "O",
 DTYPES_RAW_OPTIMIZED = {
-    "ContadorBajasCCC": "int64",
-    "ContadorBajasDNI": "int64",
-    "sexo": "int64",
-    "cnae": "str",
+    "cnae": "int",
     "icd9": "str",
     "recaida": "int64",
     "numtreb": "int64",
@@ -48,7 +86,6 @@ DTYPES_RAW_OPTIMIZED = {
     "diasemana": "int64",
     "tiempo_en_empresa": "float64",
     "edad": "float64",
-    "mes_baja": "int64",
     "epiweek": "int64"
 }
 
@@ -62,13 +99,11 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 )
 
+  
 
 # Define a prediction `/` endpoint
 @app.get('/predict')
-def predict(ContadorBajasCCC: int,
-            ContadorBajasDNI: int,
-            sexo: int,
-            cnae: str,
+def predict(cnae: int,
             icd9: str,
             recaida: int,
             numtreb: int,
@@ -80,7 +115,6 @@ def predict(ContadorBajasCCC: int,
             diasemana: int,
             tiempo_en_empresa: float,
             edad: float,
-            mes_baja: int,
             epiweek: int):
     """
     we use type hinting to indicate the data types expected
@@ -92,21 +126,21 @@ def predict(ContadorBajasCCC: int,
     the parameters of the functions which are all received as strings
     """
     # key = ContadorBajasCCC
-    X_new = pd.DataFrame([ContadorBajasCCC, ContadorBajasDNI, sexo, cnae, icd9,
+    X_new = pd.DataFrame([cnae, icd9,
        recaida, numtreb, codipostal, ContadordiasBajasDNI,
        contracte, grupcoti, pluriempleo, diasemana,
-       tiempo_en_empresa, edad, mes_baja, epiweek]).T
+       tiempo_en_empresa, edad, epiweek]).T
     X_new.columns = COLUMN_NAMES_RAW
     X_new = X_new.astype(DTYPES_RAW_OPTIMIZED)
-    # X_new = preprocess_features(X_new)
-    # y_pred = float(app.state.model.predict(X_new))
-    X_new_prepr = preprocess_new(X_new, ohe, rb_scaler, st_scaler)    
-    y_pred = float(np.exp(app.state.model.predict(X_new_prepr)))
-        
-    # return y_pred
     
-    return {'leave_duration': y_pred}
+    X_new_1 = preprocess_new(X_new, cnae_categories, icd9_mapper)
+    X_new_preproc = app.state.preproc.transform(X_new_1)
+    
+    y_pred_reg = int(np.exp(app.state.model_reg.predict(X_new_preproc)))
+    y_pred_class = int(app.state.model_class.predict(X_new_preproc))
+    
+    return {'classifier_leave_duration': y_pred_class, 'regression_leave_duration': y_pred_reg}
 
 @app.get("/")
 def root():
-    return {'greeting': 'Hello'}
+    return {'Greeting': 'Hello'}
