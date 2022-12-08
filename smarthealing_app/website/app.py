@@ -85,8 +85,9 @@ if tabs =='Dashboard':
     page_select = st.selectbox('Select graph: ', list_options)
     # Display the country content here
     st.markdown(page_select[0])
-    page = selection[page_select[0]]
+    page = selection[int(page_select[0])]
     st.markdown(page)
+    
     st.header(f"In the top 10 most common causes of leaves, here is the relationship between {page.capitalize()} and the ICD9 code (cause of leave)")
     fun = pd.read_csv('smarthealing_app/website/fun_stuff.csv')
     more_common = fun.head(10)
