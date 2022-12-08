@@ -264,7 +264,7 @@ elif tabs == 'Prediction':
     
 # ================================================================
 elif tabs == 'Results':
-    image = Image.open('Pngsmarthealing.png')
+    image = Image.open('smarthealing_app/website/Pngsmarthealing.png')
     c1, c2  = st.columns([3, 1.5], gap='medium')
     with c1:
         st.title("Results")
@@ -275,7 +275,7 @@ elif tabs == 'Results':
     if len(st.session_state["params"]) > 0:
         params = st.session_state["params"]
         st.header(f"Given the parameters and prediction...")
-        fun = pd.read_csv('fun_stuff.csv')
+        fun = pd.read_csv('smarthealing_app/website/fun_stuff.csv')
     
         more_common = fun.head(10)
         more_common = round(more_common, 2)
