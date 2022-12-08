@@ -155,7 +155,7 @@ elif tabs == 'Prediction':
     c1, c2, c3 = st.columns(3)
     with c1:
         # Day counter
-        day_counter = st.number_input('Acumulated days on leave: ',min_value=0, max_value=5000000)
+        day_counter = st.number_input('Acumulated days of previous leave: ',min_value=0, max_value=5000000)
         
     with c2:
         # Number of workers 
