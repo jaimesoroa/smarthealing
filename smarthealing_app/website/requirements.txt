@@ -1,0 +1,11 @@
+streamlit
+streamlit-lottie
+streamlit-on-Hover-tabs
+numpy
+pandas 
+datetime
+requests 
+bs4
+plotly
+scipy
+pydeck
