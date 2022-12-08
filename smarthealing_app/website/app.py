@@ -255,10 +255,10 @@ elif tabs == 'Prediction':
             regress_baja = prediction.json().get('regression_leave_duration')
             class_baja = prediction.json().get('classifier_leave_duration')
             if(class_baja == 0):
-                st.markdown(f"## Predicted Classification: *Short Leave*")
+                st.success(f"## Predicted Classification: *Short Leave*")
             else:
-                st.header(f" Predicted duration: Long Leave")
-            st.markdown(f"### Estimated duration: *Around {regress_baja} days*")
+                st.success(f" Predicted duration: Long Leave")
+            st.success(f"Estimated duration: *Around {regress_baja} days*")
         st.success('Done!')
     
 # ================================================================
