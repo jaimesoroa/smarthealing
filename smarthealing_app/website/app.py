@@ -257,7 +257,7 @@ elif tabs == 'Prediction':
             if(class_baja == 0):
                 st.success(f"## Predicted Classification: *Short Leave*")
             else:
-                st.success(f" Predicted duration: *Long Leave*")
+                st.success(f"## Predicted duration: *Long Leave*")
             st.success(f"### Estimated duration: *Around {regress_baja} days*")
     
 # ================================================================
