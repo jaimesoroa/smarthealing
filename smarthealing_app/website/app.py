@@ -82,7 +82,7 @@ if tabs =='Dashboard':
                 """)
     selection = ['count','edad_mean', 'edad_median', 'duration_mean', 'duration_median']
     list_options = ['1 - Number of Leaves','2 - edad_mean', 'edad_median', 'duration_mean', 'duration_median']
-    page = st.selectbox('Select graph: ', selection)
+    page = st.selectbox('Select graph: ', list_options)
     # Display the country content here
     page = selection[page[0]]
     st.header(f"In the top 10 most common causes of leaves, here is the relationship between {page.capitalize()} and the ICD9 code (cause of leave)")
