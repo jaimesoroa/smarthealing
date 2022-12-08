@@ -81,11 +81,11 @@ if tabs =='Dashboard':
                 The dataset consist of the information on leaves of more than 250K employees of many different companies
                 """)
     selection = ['count','edad_mean', 'edad_median', 'duration_mean', 'duration_median']
-    list_options = ['1 - Number of Leaves','2 - edad_mean', 'edad_median', 'duration_mean', 'duration_median']
+    list_options = ['1 - Number of Leaves','2 - Age (Mean)', '3 - Age (Median)', '4 - Duration (Mean)', '5 - Duration (Median)']
     page_select = st.selectbox('Select graph: ', list_options)
     # Display the country content here
     st.markdown(page_select[0])
-    page = selection[int(page_select[0])]
+    page = selection[int(page_select[0])-1]
     st.markdown(page)
     
     st.header(f"In the top 10 most common causes of leaves, here is the relationship between {page.capitalize()} and the ICD9 code (cause of leave)")
