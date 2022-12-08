@@ -90,7 +90,7 @@ if tabs =='Dashboard':
 
     fig = px.bar(
         data_frame=more_common, 
-        x='icd9', 
+        x=str('icd9'), 
         y=page, 
         custom_data=['count', 'icd9','edad_mean', 'edad_median', 'duration_mean', 'duration_median', 'description']
     )
@@ -245,7 +245,6 @@ elif tabs == 'Prediction':
         }
         st.session_state["params"] = params.copy()
         # st.write(params)
-        
         # API CALL
         
         url = "https://smarthealing-w5jxjldzkq-ew.a.run.app/predict"
@@ -284,7 +283,7 @@ elif tabs == 'Results':
         col3.metric("Day of the Week", params['epiweek'], "4%")
 
     else:
-        st.write("No parameters yet, go to the prediction tab and input the data, thanks ⚠️")
+        st.write("No parameters yet, go to the prediction tab and input the data ⚠️")
         #displaying the image on streamlit app
         url_lottie = "https://assets4.lottiefiles.com/packages/lf20_4owMZE.json"
         def load_lottieurl(url: str):
