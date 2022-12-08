@@ -78,10 +78,9 @@ if tabs =='Dashboard':
     st.markdown("""---""")
     
     st.markdown(""" 
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ac volutpat ante, eu faucibus ex. 
-                Maecenas nec accumsan ante. Maecenas aliquet mauris nec dapibus malesuada. Ut libero justo, volutpat a porttitor eu, posuere eu nulla. Maecenas blandit nisl id ante dignissim, at hendrerit ipsum pretium.
-                Sed eu dui ultricies, pulvinar eros ac, cursus nunc. Etiam efficitur ligula at blandit ullamcorper.""")
-        #displaying the image on streamlit app
+                What shall we put here?
+                """)
+    
     page = st.selectbox('Select graph: ',['count','edad_mean', 'edad_median', 'duration_mean', 'duration_median'])
     # Display the country content here
     st.header(f"{page} and icd9")
