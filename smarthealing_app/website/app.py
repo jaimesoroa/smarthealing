@@ -86,7 +86,8 @@ if tabs =='Dashboard':
     page = selection[int(page_select[0])-1]
     name_page = page_select[3:]
     
-    st.header(f"In the top 10 most common causes of leaves, here is the relationship between {name_page} and the ICD9 code (cause of leave)")
+    st.markdown(f"""In the top 10 most common causes of leaves: 
+              Here is the relationship between {name_page} and the ICD9 code (cause of leave)""")
     fun = pd.read_csv('smarthealing_app/website/fun_stuff.csv')
     more_common = fun.head(10)
     more_common = round(more_common,2)
@@ -96,7 +97,7 @@ if tabs =='Dashboard':
         x='delete', 
         y=page, 
         custom_data=['count', 'icd9','edad_mean', 'edad_median', 'duration_mean', 'duration_median', 'description']
-    ).update_layout(xaxis_title="Date", yaxis_title="7 day avg"
+    ).update_layout(xaxis_title="Most frequent causes of leaves", yaxis_title=name_page
 )
 
     fig.update_traces(
@@ -281,9 +282,10 @@ elif tabs == 'Results':
     
         more_common = fun.head(10)
         more_common = round(more_common, 2)
-
+        st.markdown(""" ##### For future versions...""")
+        st.markdown(""" ###### We are going to add a detailed result analysis..""")
         col1, col2, col3 = st.columns(3)
-        col1.metric("ICD9:", params['icd9'] , "1.2 °F")
+        col1.metric("ICD9:", params['icd9'] , "1.2%")
         col2.metric("Age", params['edad'], "-8%")
         col3.metric("Day of the Week", params['epiweek'], "4%")
 
