@@ -6,7 +6,6 @@ from sklearn.preprocessing import OneHotEncoder
 from sklearn.preprocessing import RobustScaler
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import make_pipeline
-# from sklearn.pipeline import make_union
 from sklearn.compose import make_column_transformer
 import xgboost as xgb
 import os
@@ -373,26 +372,7 @@ def fit_pipelines(X_train, y_train):
     
     preproc = pipeline()
     preproc_2 = make_pipeline(preproc)
-    # model_XGBClass = xgb.XGBClassifier(objective= 'binary:logistic',
-    #                                    max_depth= 3, eval_metric= 'aucpr')
-    # model_XGBReg = xgb.XGBRegressor(booster= 'dart', objective ='reg:absoluteerror',
-    #                                 n_estimators = 750, learning_rate= 0.01,
-    #                                min_child_weight= 4, max_depth= 8,
-    #                                colsample_bytree= 0.7, n_jobs=-1,
-    #                                eval_metric = 'mae')
-
-    # classifier = make_pipeline(preproc, model_XGBClass)
-    # regressor = make_pipeline(preproc, model_XGBReg)
-    
-    # Fit the regressor model
     preproc_2.fit(X_train, y_train)
-    # Encode the y
-    # y_train_encoded = y_train.copy()
-    # y_train_encoded = y_train.map(y_encode_2)
-    # Add linear combinations of the smaller category rows
-    # X_train_resampled, y_train_resampled = SMOTE().fit_resample(X_train, y_train_encoded)
-    # Fit the regressor model
-    # classifier.fit(X_train_resampled, y_train_resampled)
             
     return preproc_2
 
@@ -428,14 +408,6 @@ if __name__ == '__main__':
         
     print("\n✅ Preprocessor pipeline saved locally")
     
-    # Save train and test sets
-    
-    # X_train_samp = X_train.sample(n = 200, random_state = 8)
-    # y_train_samp = y_train.sample(n = 200, random_state = 8)
-    # X_test_samp = X_test.sample(n = 100, random_state = 8)
-    # y_test_samp = y_test.sample(n = 100, random_state = 8)
-    
-    
     X_train_final = preproc.transform(X_train)
     X_test_final = preproc.transform(X_test)
             
@@ -453,22 +425,3 @@ if __name__ == '__main__':
         pickle.dump(y_test, file)
         
     print("\n✅ Train and test sets saved locally")
-        
-    """
-    # Fit pipelines
-    classifier, regressor = fit_pipelines(X_train, y_train)
-    
-    # Save regressor pipeline
-    regressor_path = os.path.join(LOCAL_REGISTRY_PATH, "regressor_pipeline.pkl")
-    with open(regressor_path, "wb") as file:
-        pickle.dump(regressor, file)
-    
-    print("\n✅ Regression pipeline saved locally")
-    
-    # Save classifier pipeline
-    classifier_path = os.path.join(LOCAL_REGISTRY_PATH, "classifier_pipeline.pkl")
-    with open(classifier_path, "wb") as file:
-        pickle.dump(classifier, file)
-    
-    print("\n✅ Classification pipeline saved locally")
-    """

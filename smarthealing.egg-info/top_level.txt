@@ -1,4 +1,0 @@
-smarthealing_api
-smarthealing_app
-smarthealing_interface
-smarthealing_mod

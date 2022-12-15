@@ -12,7 +12,6 @@ fastapi
 uvicorn
 httpx
 google-cloud-storage
-# math
 xgboost
 uvicorn
 openpyxl

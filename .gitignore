@@ -1,3 +1,7 @@
 raw_data/
 .env
 .env.yaml
+.envrc
+notebooks/
+trained_models/
+smarthealing.egg-info/

@@ -79,12 +79,7 @@ def save_model_class(X_train, y_train):
     return None
 
 if __name__ == '__main__':
-        
-    # X_train_filename = os.path.join(dirname, '../../raw_data/X_train')
-    # X_train = pd.read_csv(X_train_filename, delimiter = ',', low_memory = False)
-    # y_train_filename = os.path.join(dirname, '../../raw_data/y_train')
-    # y_train = pd.read_csv(y_train_filename, delimiter = ',', low_memory = False)
-    
+
     X_train_path = os.path.join(LOCAL_REGISTRY_PATH, "X_train_final.pkl")
     with open(X_train_path, "rb") as file:
         X_train = pickle.load(file)
