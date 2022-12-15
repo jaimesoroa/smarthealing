@@ -21,3 +21,13 @@ Each row of data is one previous leave of one worker, and includes:
     - Weather the person is working on several jobs
 
     - Sick leave duration  <- what to predict
+
+The interface has been designed with streamlit, and its files are in the folder smarthealing_app/.
+It can be run through the following url : https://smart-healing.streamlit.app/
+
+Both classification and regression models (XGBoost) have been locally trained and saved with the file smarthealing_mod/model/model.py.
+The raw data has been preprocessed with the file smarthealing_mod/preprocessor.py.
+
+The API has been designed using FastAPI. Its files are in the folder smarthealing_api/.
+The API retrieves the saved trained models, and preprocess the new input again with preprocessor.py.
+The API works in Google Cloud Run with a Docker image created using the file dockerfile.
